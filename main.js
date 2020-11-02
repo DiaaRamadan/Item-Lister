@@ -4,12 +4,15 @@ var itemList = document.getElementById('items');
 // form submit event
 form.addEventListener('submit', addItem);
 
+// delete item event
+itemList.addEventListener('click', removeItem);
+
 // add item function
 function addItem(e){
     e.preventDefault();
 
     // get form input
-    var newItem = document.getElementById('item').value;
+    var newItem = document.getElementById('item');
     
     // create new li
 
@@ -18,7 +21,7 @@ function addItem(e){
 
     // create new text node
 
-    const newLiTextNode = document.createTextNode(newItem);
+    const newLiTextNode = document.createTextNode(newItem.value);
     newLi.appendChild(newLiTextNode);
 
     itemList.appendChild(newLi);
@@ -29,4 +32,14 @@ function addItem(e){
     deleteBtn.appendChild(document.createTextNode('X'));
 
     newLi.appendChild(deleteBtn);
+    newItem.value = '';
+}
+
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are you sure?')){
+            var li = e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
 }
